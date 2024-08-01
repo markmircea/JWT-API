@@ -32,9 +32,12 @@ php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServicePro
 6. Update the User model with JWT functions.
 
 7. Create controllers:
-php artisan make:controller AuthController
+```
+php artisan make:controller APIAuthController
+php artisan make:controller BrowserAuthController
 php artisan make:controller QuotationController
 php artisan make:controller QuotationFormController
+```
 8. Create the QuotationService.
 
 9. Set up default JWT expiry to 60 minutes and refresh token to 3 days.
@@ -77,7 +80,7 @@ The project follows a typical Laravel MVC architecture with the addition of a se
 ### For API
 
 - Login give access token and refresh token: username and password needed
-- Refresh requires refresh token sent as json 
+- Refresh requires refresh token sent as json, invalidates refresh token on backend for additional security
 - Quotation requires access token header 
 - BacklistAccess requires access token header and blacklists the current access token
 - BlacklistRefresh requires the request token json and blacklist s the current refresh token
@@ -161,7 +164,27 @@ The project follows a typical Laravel MVC architecture with the addition of a se
     }
     ```
 
-## 4. Get Quotation
+    ## 4. Blacklist Access Token
+- **Endpoint**: `/api/auth/blacklistAccess`
+- **Method**: POST
+-  **Headers**:
+    ```text
+    Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGci...
+    ```
+- **Output (Success - 200 OK)**:
+    ```json
+    {
+      "message": "Access token invalidated successfully"
+    }
+    ```
+- **Output (Failure - 401 Unauthorized)**:
+    ```json
+    {
+      "error": "Unauthorized."
+    }
+    ```
+
+## 5. Get Quotation
 - **Endpoint**: `/api/quotation`
 - **Method**: POST
 - **Headers**:

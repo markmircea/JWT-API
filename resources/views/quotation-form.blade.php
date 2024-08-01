@@ -88,7 +88,7 @@
                     const response = await api.post('/quotation', Object.fromEntries(new FormData(e.target))); //form data object from submitted form into js object
                     document.getElementById('result').innerHTML = `
                         <h2>Quotation Result</h2>
-                        <p>Total: ${response.data.total} ${response.data.currency_id}</p>
+                        <p>Total: ${response.data.total} "${response.data.currency_id}"</p>
                         <p>Quotation ID: ${response.data.quotation_id}</p>
                     `;
                 } catch (error) {
