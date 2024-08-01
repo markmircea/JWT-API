@@ -25,8 +25,8 @@
     <script>
         document.getElementById('loginForm').addEventListener('submit', async (e) => {  //listen to login submit and then post login, server sets http only cookie with refresh token, redirect to quotation page
             e.preventDefault();
-            const formData = new FormData(e.target);
-            const data = Object.fromEntries(formData.entries());
+            const formData = new FormData(e.target);                //create form data obj
+            const data = Object.fromEntries(formData.entries());  //conver to js object for handleing to server
 
             try {
                 const response = await axios.post('/auth/browser/login', data);
