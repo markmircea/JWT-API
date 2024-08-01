@@ -271,6 +271,38 @@ The project follows a typical Laravel MVC architecture with the addition of a se
     }
     ```
 
+    ## 4. Browser Quotation
+    - **Accepts the simpler version is ISO 8601 Y-m-d**
+- **Endpoint**: `/quotation`
+- **Method**: POST
+- **Headers**:
+    ```text
+    Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGci...
+    ```
+- **Input**:
+    ```json
+    {
+      "age": "28,35",
+      "currency_id": "EUR",
+      "start_date": "2023-08-01",
+      "end_date": "2023-08-30"
+    }
+    ```
+- **Output (Success - 200 OK)**:
+    ```json
+    {
+      "total": "117.00",
+      "currency_id": "EUR",
+      "quotation_id": "qid64c8a3e7b1234"
+    }
+    ```
+- **Output (Failure - 400 Bad Request)**:
+    ```json
+    {
+      "error": "Age must be between 18 and 70"
+    }
+    ```
+
 
 # Project Structure and Key Files
 
