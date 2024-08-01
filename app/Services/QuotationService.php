@@ -46,7 +46,7 @@ class QuotationService
         if (!in_array($currencyId, ['EUR', 'GBP', 'USD'])) {   //for api mainly
             throw new InvalidArgumentException('Invalid Currency Type');
         }
-        if (!Carbon::hasFormat($startDate, 'Y-m-d') || !Carbon::hasFormat($endDate, 'Y-m-d')) {  //for api mainly
+        if (!Carbon::hasFormat($startDate, 'Y-m-d') || !Carbon::hasFormat($endDate, 'Y-m-d')) {  //follow required Y-m-d structure
             throw new InvalidArgumentException('Invalid date format, format must be Y-m-d');
         }
         if ($startDateCarbon->lt($today)) {
@@ -58,7 +58,7 @@ class QuotationService
         }
 
         foreach ($ages as $age) {
-            if (!ctype_digit($age)) {
+            if (!ctype_digit($age)) {  //must be number, true for int
                 throw new InvalidArgumentException('Age must be a whole number without decimals or special characters');
             }
             $ageValue = (int)$age;
