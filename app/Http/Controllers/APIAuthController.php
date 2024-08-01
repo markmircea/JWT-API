@@ -99,6 +99,12 @@ public function refresh(Request $request): JsonResponse //refreshes the access t
         ]);
     }
 
+    public function blacklistAccessToken (): JsonResponse // to invalidate access token only
+    {
+        auth('api')->logout();
+        return response()->json(['message' => 'Successfully logged out']);
+    }
+
 
     public function blacklistRefreshToken(Request $request): JsonResponse // to invalidate refresh token only
     {
