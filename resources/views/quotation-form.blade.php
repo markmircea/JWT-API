@@ -81,18 +81,18 @@
             }
         }
 
-        function setupFormSubmission() {  //eventlsitner form submission + response
+        function setupFormSubmission() {  //eventlsitner form submission + response no page reload
             document.getElementById('quotationForm').addEventListener('submit', async (e) => {
                 e.preventDefault();
                 try {
-                    const response = await api.post('/quotation', Object.fromEntries(new FormData(e.target)));
+                    const response = await api.post('/quotation', Object.fromEntries(new FormData(e.target))); //form data object from submitted form into js object
                     document.getElementById('result').innerHTML = `
                         <h2>Quotation Result</h2>
                         <p>Total: ${response.data.total} ${response.data.currency_id}</p>
                         <p>Quotation ID: ${response.data.quotation_id}</p>
                     `;
                 } catch (error) {
-                    console.error('Error:', error);
+                    console.error('Error:', error);    //console and error handler
                     handleError(error);
                 }
             });
@@ -110,10 +110,10 @@
         }
 
         function handleError(error) {  //error handling
-            let errorMessage = 'An unexpected error occurred. Please try again.';
+            let errorMessage = 'An unexpected error occurred. Please try again.';  //defualt
             if (error.response) {
-                errorMessage = error.response.data.error || error.response.data.message || errorMessage;
-            } else if (error.request) {
+                errorMessage = error.response.data.error || error.response.data.message || errorMessage;  // check response property for message or error
+            } else if (error.request) {                                                                         //request error internet issue
                 errorMessage = 'No response received from server. Please check your internet connection.';
             }
             document.getElementById('result').innerHTML = `<h2>Error</h2><p>${errorMessage}</p>`;
