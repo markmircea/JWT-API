@@ -59,7 +59,7 @@ class QuotationService
 
         foreach ($ages as $age) {
             if (!ctype_digit($age)) {  //must be number, true for int
-                throw new InvalidArgumentException('Age must be a whole number without decimals or special characters');
+                throw new InvalidArgumentException('Age must be a whole number without decimals, special characters or spaces');
             }
             $ageValue = (int)$age;
             if ($ageValue < 18 || $ageValue > 70) {
