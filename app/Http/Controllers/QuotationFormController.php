@@ -10,5 +10,6 @@ class QuotationFormController extends Controller
     public function showForm()
     {
 
-        return view('quotation-form');    }
+        return view('quotation-form');
+      }
 }

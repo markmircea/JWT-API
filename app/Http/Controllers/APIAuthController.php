@@ -99,14 +99,14 @@ public function refresh(Request $request): JsonResponse //refreshes the access t
         ]);
     }
 
-    public function blacklistAccessToken (): JsonResponse // to invalidate access token only
+    public function blacklistAccessToken (): JsonResponse // to invalidate access token only, requires headers
     {
         auth('api')->logout();
         return response()->json(['message' => 'Successfully logged out']);
     }
 
 
-    public function blacklistRefreshToken(Request $request): JsonResponse // to invalidate refresh token only
+    public function blacklistRefreshToken(Request $request): JsonResponse // to invalidate refresh token only, requires refresh json
     {
         $refreshToken = $request->input('refresh_token');
         if (!$refreshToken) {

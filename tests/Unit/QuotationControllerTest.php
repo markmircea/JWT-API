@@ -30,7 +30,7 @@ class QuotationControllerTest extends TestCase
 
     public function testGetQuotationSuccessfully()
     {
-        $request = new Request([
+        $request = new Request([   //set up with valid data
             'age' => '25,35',
             'currency_id' => 'EUR',
             'start_date' => '2024-08-01',
@@ -43,16 +43,16 @@ class QuotationControllerTest extends TestCase
             'quotation_id' => 'qid123456',
         ];
 
-        $this->mockQuotationService->shouldReceive('calculateQuotation')
+        $this->mockQuotationService->shouldReceive('calculateQuotation') //call method once
             ->once()
             ->with([25, 35], 'EUR', '2024-08-01', '2024-08-10')
             ->andReturn($expectedQuotation);
 
         $response = $this->controller->getQuotation($request);
 
-        $this->assertInstanceOf(JsonResponse::class, $response);
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals($expectedQuotation, $response->getData(true));
+        $this->assertInstanceOf(JsonResponse::class, $response);  //confirm json response
+        $this->assertEquals(200, $response->getStatusCode());   //confirm 200 status
+        $this->assertEquals($expectedQuotation, $response->getData(true));  //decode json to array for comparison with expected quotation
     }
 
     public function testGetQuotationWithInvalidInput()
@@ -64,15 +64,15 @@ class QuotationControllerTest extends TestCase
             'end_date' => '2024-08-10',
         ]);
 
-        $this->mockQuotationService->shouldReceive('calculateQuotation')
+        $this->mockQuotationService->shouldReceive('calculateQuotation')    // set mock serivce to throw exception when calculatequestion is called
             ->once()
             ->andThrow(new InvalidArgumentException('Invalid input'));
 
         $response = $this->controller->getQuotation($request);
 
-        $this->assertInstanceOf(JsonResponse::class, $response);
-        $this->assertEquals(422, $response->getStatusCode());
-        $this->assertEquals(['error' => 'Invalid input'], $response->getData(true));
+        $this->assertInstanceOf(JsonResponse::class, $response);  //confirm json response
+        $this->assertEquals(422, $response->getStatusCode());   //confirm 422 response
+        $this->assertEquals(['error' => 'Invalid input'], $response->getData(true)); //compare response to expected error
     }
 
     public function testGetQuotationWithMissingRequiredFields()
@@ -93,3 +93,4 @@ class QuotationControllerTest extends TestCase
         $this->assertArrayHasKey('end_date', $responseData['error']);
     }
 }
+
