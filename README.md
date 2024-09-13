@@ -16,47 +16,35 @@ This project is a Laravel-based API for generating insurance quotations. It incl
 
 ## Setup Instructions
 
-1. Create a new Laravel project:
-composer create-project --prefer-dist laravel/laravel:^10.48.17 insurance-quotation
-2. Install JWT Auth package:
-composer require tymon/jwt-auth
-3. Publish the JWT config file:
+php artisan key:generate
+1. Install Dependecies:
 ```
-php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider"
+composer install
+npm install
+```
+2. Generate key:
+```
+php artisan key:generate
 ```
 4. Generate JWT secret key:
-`php artisan jwt:secret`
-
-5. Update `config/auth.php` to add API guards.
-
-6. Update the User model with JWT functions.
-
-7. Create controllers:
 ```
-php artisan make:controller APIAuthController
-php artisan make:controller BrowserAuthController
-php artisan make:controller QuotationController
-php artisan make:controller QuotationFormController
+php artisan jwt:secret
 ```
-8. Create the QuotationService.
-
-9. Set up default JWT expiry to 60 minutes and refresh token to 3 days.
-
-10. Create a seeder for the default user, modify and run seeder:
+5. Migrate the DB and run seed:
  ```
- php artisan make:seeder DefaultUserSeeder
+ php artisan migrate
  ```
  ```
  php artisan db:seed
  ```
+6. Run
+```
+php artisan serve
+```
+```
+npm run dev
+```
 
-11. Set up CSRF token verification, excluding API routes.
-
-12. Implement rate limiting for API routes.
-
-13. Add Laravel security logs channel in `config/logging.php` for unsuccessful logins.
-
-14. Set up unit tests for QuotationController and QuotationService.
 
 ## Architecture
 
